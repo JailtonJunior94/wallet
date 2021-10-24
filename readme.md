@@ -14,3 +14,4 @@
 - CosmosDB (SQL API)
 - AKS (Kubernetes)
 - Docker
+- Terraform (Infra as code)
