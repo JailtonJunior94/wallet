@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using User.Domain.Interfaces;
+using User.Infra.Repositories;
 
 namespace User.API
 {
@@ -18,6 +20,8 @@ namespace User.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IUserRepository, UserRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

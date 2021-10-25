@@ -1,27 +1,32 @@
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Transaction.Domain.Interfaces;
 
 namespace Transaction.Worker
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private readonly IReceiverMessageHandle _handle;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IReceiverMessageHandle handle)
         {
             _logger = logger;
+            _handle = handle;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
-            }
+            await _handle.RegisterOnMessageHandlerAndReceiveMessages();
+
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
+            //    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            //    await Task.Delay(1000, stoppingToken);
+            //}
         }
     }
 }

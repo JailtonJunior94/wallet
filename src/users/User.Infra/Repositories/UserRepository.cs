@@ -4,16 +4,14 @@ using User.Domain.Interfaces;
 
 namespace User.Infra.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository()
-        {
+        public UserRepository() : base("walletdb", "users") { }
 
-        }
-
-        public Task<Domain.Entities.User> CreateUserAsync(Domain.Entities.User user)
+        public async Task<Domain.Entities.User> CreateUserAsync(Domain.Entities.User user)
         {
-            throw new NotImplementedException();
+            var response = await _container.CreateItemAsync(user);
+            return response;
         }
 
         public Task<Domain.Entities.User> GetUserById(Guid id)
