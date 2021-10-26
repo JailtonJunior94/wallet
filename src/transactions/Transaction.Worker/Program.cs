@@ -23,6 +23,7 @@ namespace Transaction.Worker
                     Log.Logger = new LoggerConfiguration()
                         .ReadFrom.Configuration(hostContext.Configuration)
                    .CreateLogger();
+
                 }).UseSerilog();
     }
 }
