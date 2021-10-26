@@ -1,11 +1,10 @@
+using User.API.Configurations;
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using User.Domain.Interfaces;
-using User.Infra.Repositories;
 
 namespace User.API
 {
@@ -20,13 +19,13 @@ namespace User.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUserRepository, UserRepository>();
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "User.API", Version = "v1" });
             });
+
+            services.AddDependencies();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -3,19 +3,24 @@ using User.Domain.Dtos;
 using System.Threading.Tasks;
 using User.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using User.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace User.Domain.Services
 {
     public class UserService : IUserService
     {
-        public UserService()
-        {
+        private readonly IUserRepository _userRepository;
 
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
         }
 
-        public Task<ObjectResult> CreateUserAsync(CreateUserDto request)
+        public async Task<ObjectResult> CreateUserAsync(CreateUserCommand command)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.CreateUserAsync(new Users(command.Name, command.Birthday));
+            return new ObjectResult(user) { StatusCode = StatusCodes.Status201Created };
         }
 
         public Task<ObjectResult> GetUserByIdAsync(Guid id)

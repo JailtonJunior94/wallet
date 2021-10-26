@@ -1,11 +1,12 @@
 ﻿using System;
+using User.Domain.Entities;
 using System.Threading.Tasks;
 
 namespace User.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<Entities.User> CreateUserAsync(Entities.User user);
-        Task<Entities.User> GetUserById(Guid id);
+        Task<Users> CreateUserAsync(Users user);
+        Task<Users> GetUserById(Guid id);
     }
 }

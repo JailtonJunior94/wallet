@@ -2,7 +2,7 @@
 
 namespace User.Domain.Dtos
 {
-    public class CreateUserDto
+    public class CreateUserCommand
     {
         public string Name { get; set; }
         public DateTime Birthday { get; set; }

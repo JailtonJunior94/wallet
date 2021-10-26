@@ -6,8 +6,6 @@ namespace User.Infra.Repositories
     {
         private readonly CosmosClient _client;
         protected readonly Container _container;
-        private readonly string databaseName;
-        private readonly string containerName;
 
         public BaseRepository(string databaseName, string containerName)
         {

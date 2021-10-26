@@ -8,6 +8,6 @@ namespace User.Domain.Interfaces
     public interface IUserService
     {
         Task<ObjectResult> GetUserByIdAsync(Guid id);
-        Task<ObjectResult> CreateUserAsync(CreateUserDto request);
+        Task<ObjectResult> CreateUserAsync(CreateUserCommand command);
     }
 }

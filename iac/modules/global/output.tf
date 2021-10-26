@@ -3,5 +3,5 @@ output "wallet_resource_group_name" {
 }
 
 output "wallet_application_insights_instrumentation_key" {
-  value = azurerm_application_insights.wallet_application_insights.instrumentation_key
+  value = nonsensitive(azurerm_application_insights.wallet_application_insights.instrumentation_key)
 }
