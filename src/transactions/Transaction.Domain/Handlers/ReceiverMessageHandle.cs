@@ -12,12 +12,12 @@ namespace Transaction.Domain.Handlers
         private readonly ILogger _logger;
         private ServiceBusProcessor _processor;
         private readonly ServiceBusClient _client;
-        private const string QUEUE_NAME = "transaction-queue";
+        private const string QUEUE_NAME = "";
 
         public ReceiverMessageHandle(ILogger<ReceiverMessageHandle> logger)
         {
             _logger = logger;
-            _client = new ServiceBusClient("Endpoint=sb://sb-wallet.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=nITGAlYXdCaSTYzXOkHSykU2Mrwgyv7q3zMw9UcYKPY=");
+            _client = new ServiceBusClient("");
         }
 
         public async Task RegisterOnMessageHandlerAndReceiveMessages()
@@ -56,14 +56,10 @@ namespace Transaction.Domain.Handlers
         public async ValueTask DisposeAsync()
         {
             if (_processor != null)
-            {
                 await _processor.DisposeAsync();
-            }
 
             if (_client != null)
-            {
                 await _client.DisposeAsync();
-            }
         }
 
         public async Task CloseQueueAsync()

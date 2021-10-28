@@ -1,7 +1,7 @@
 using Serilog;
-using Transaction.Domain.Handlers;
 using Microsoft.Extensions.Hosting;
-using Transaction.Domain.Interfaces;
+using Transaction.Worker.Configurations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Transaction.Worker
@@ -17,12 +17,17 @@ namespace Transaction.Worker
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<IReceiverMessageHandle, ReceiverMessageHandle>();
-                    services.AddHostedService<Worker>();
+                    var builder = new ConfigurationBuilder()
+                         .SetBasePath(hostContext.HostingEnvironment.ContentRootPath)
+                         .AddJsonFile("appsettings.json", true, true)
+                         .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                         .AddEnvironmentVariables();
 
-                    Log.Logger = new LoggerConfiguration()
-                        .ReadFrom.Configuration(hostContext.Configuration)
-                   .CreateLogger();
+                    IConfiguration configuration = builder.Build();
+
+                    services.AddDependencies();
+                    services.AddLogger(configuration);
+                    services.AddHostedService<Worker>();
 
                 }).UseSerilog();
     }

@@ -7,7 +7,7 @@ namespace User.Infra.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository() : base("walletdb", "users") { }
+        public UserRepository() : base("", "") { }
 
         public async Task<Users> CreateUserAsync(Users user)
         {

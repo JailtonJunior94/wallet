@@ -1,9 +1,9 @@
 ﻿using System;
 using User.Domain.Dtos;
+using User.Domain.Entities;
 using System.Threading.Tasks;
 using User.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using User.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace User.Domain.Services
